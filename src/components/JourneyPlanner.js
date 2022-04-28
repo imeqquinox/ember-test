@@ -3,6 +3,7 @@ import React from 'react';
 import Route from './Route';
 import TravelDate from './TravelDate';
 import Passengers from './Passengers';
+import Search from './Search';
 
 function JourneyPlanner() {
   return (
@@ -11,7 +12,9 @@ function JourneyPlanner() {
       <br />
       <TravelDate />
       <br />
-      {/* <Passengers /> */}
+      <Passengers />
+      <br />
+      <Search />
     </div>
   )
 }

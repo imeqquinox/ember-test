@@ -1,0 +1,25 @@
+.passengeritem_container {
+  display: flex;
+  align-items: center;
+}
+
+.passengeritem_logo {
+  width: 45px; 
+  height: 45px;
+}
+
+.passengeritem_titlecontainer {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  margin-left: 5px;
+}
+
+.passengeritem_title {
+  font-size: 1.2rem;
+}
+
+.passengeritem_info {
+  font-size: 0.8rem;
+}
+
