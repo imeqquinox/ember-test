@@ -1,11 +1,7 @@
 import './App.css';
 
 import NavBar from './components/NavBar';
-
-// To add: 
-// - NavBar
-// - Header 
-// - Journey Planner
+import JourneyPlanner from './components/JourneyPlanner';
 
 function App() {
   return (
@@ -29,6 +25,7 @@ function App() {
           <a href='/'>Track my bus</a>
         </div>
       </header>
+      <JourneyPlanner />
     </div>
   );
 }

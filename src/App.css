@@ -4,52 +4,6 @@
   --link-highlight: #3dd9cb;
 }
 
-/* NavBar */
-.navbar_container {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 0px 20%;
-  height: 50px;
-}
-
-.logo {
-  fill: var(--logo-colour) !important;
-  width: 100px; 
-  height: 100px;
-  cursor: pointer;
-  margin-right: auto;
-}
-
-.nav_links {
-  list-style-type: none;
-}
-
-.nav_links li {
-  display: inline-block;
-  padding: 0px 20px;
-}
-
-.nav_links a {
-  color: var(--nav-colour);
-  text-decoration: none;
-}
-
-.nav_links a:hover {
-  color: var(--link-highlight);
-}
-
-.login button {
-  padding: 9px 25px;
-  background-color: #ECF8F7;
-  border: none;
-  cursor: pointer;
-}
-
-.login button:hover {
-  background-color: #D6F0EE;
-}
-
 /* Header intro */
 .intro_container {
   padding: 50px 20%;
@@ -74,4 +28,9 @@
 .service_notice a {
   float: right;
   color: white;
+}
+
+/* Journey Planner */
+.planner_container {
+  margin: 30px 20%;
 }
