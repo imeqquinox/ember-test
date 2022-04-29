@@ -2,15 +2,9 @@ import React, { useState } from 'react';
 
 function Counter() {
   const [counter, setCounter] = useState(0);
-  //const [isDisabled, setIsDisabled] = useState(true);
 
   const increase = () => {
     setCounter(count => count + 1);
-
-    // For disabling the button 
-    // if (counter > 0) {
-    //   setIsDisabled(false);
-    // }
   }
 
   const decrease = () => {

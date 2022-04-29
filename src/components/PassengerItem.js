@@ -1,7 +1,6 @@
 import React from 'react';
 
 import './css/PassengerItem.css';
-import Counter from './Counter';
 
 function PassengerItem(props) {
   return (
@@ -11,7 +10,7 @@ function PassengerItem(props) {
         <span className='passengeritem_title'>{props.title}</span>
         <span className='passengeritem_info'>{props.info}</span>
       </div>
-      <Counter />
+      {props.counter}
     </div>
   )
 }
