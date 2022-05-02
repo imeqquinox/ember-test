@@ -1,25 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux'; 
+import { addTicket, removeTicket } from './slices/InputSlice';  
 
-function Counter({ counter, setCounter }) {
-  //const [counter, setCounter] = useState(0);
-
-  const increase = () => {
-    //setCounter(count => count + 1);
-    setCounter(count => count + 1); 
-  }
-
-  const decrease = () => {
-    if (counter > 0) {
-      //setCounter(count => count - 1);
-      setCounter(count => count - 1);
-    }
-  }
-
+function Counter({ ticketCounter, ticketType }) {
+  const dispatch = useDispatch(); 
+  
   return (
     <div className='counter_container'>
-      <button className='counter_decrease' onClick={decrease}>-</button>
-      <span className='counter_count'>{counter}</span>
-      <button className='counter_increase' onClick={increase}>+</button>
+      <button className='counter_decrease' onClick={() => dispatch(removeTicket(ticketType))}>-</button>
+      <span className='counter_count'>{ticketCounter}</span>
+      <button className='counter_increase' onClick={() => dispatch(addTicket(ticketType))}>+</button>
     </div>
   )
 }

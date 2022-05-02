@@ -3,7 +3,7 @@ import Counter from './Counter';
 
 import './css/PassengerItem.css';
 
-function PassengerItem({ logo, title, info, tickets, setTickets}) {
+function PassengerItem({ logo, title, info, ticketCounter }) {
   return (
     <div className='passengeritem_container'>
       {logo}
@@ -11,10 +11,9 @@ function PassengerItem({ logo, title, info, tickets, setTickets}) {
         <span className='passengeritem_title'>{title}</span>
         <span className='passengeritem_info'>{info}</span>
       </div>
-      {/* {props.counter} */}
       <Counter 
-        counter={tickets}
-        setCounter={setTickets}
+        ticketCounter={ticketCounter}
+        ticketType={title}
       />
     </div>
   )

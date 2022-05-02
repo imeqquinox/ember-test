@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
 
 import { ReactComponent as Adult } from '../assets/adult.svg';
 import { ReactComponent as Baby } from '../assets/baby.svg';
@@ -7,10 +8,14 @@ import { ReactComponent as Child } from '../assets/child.svg';
 import { ReactComponent as Concession } from '../assets/concessions.svg';
 import { ReactComponent as Wheelchair } from '../assets/wheelchair.svg';
 import PassengerItem from './PassengerItem';
-import AdultCounter from './ticket counters/AdultCounter';
-import Counter from './Counter';
 
-function Passengers({ tickets, setTickets }) {
+function Passengers() {
+  const adultTicket = useSelector((state) => state.inputData.tickets.adult);
+  const concessionTicket = useSelector((state) => state.inputData.tickets.concession);
+  const childTicket = useSelector((state) => state.inputData.tickets.child); 
+  const babyTicket = useSelector((state) => state.inputData.tickets.baby); 
+  const wheelchairTicket = useSelector((state) => state.inputData.tickets.wheelchair); 
+  const bikeTicket = useSelector((state) => state.inputData.tickets.bike);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -28,32 +33,28 @@ function Passengers({ tickets, setTickets }) {
           title='Adult'
           info='Over 18'
           type='Adult'
-          tickets={tickets}
-          setTickets={setTickets}
+          ticketCounter={adultTicket}
         />
         <PassengerItem 
           logo={<Concession className='passengeritem_logo'/>}
           title='Concessions'
           info='Scottish bus pass holders'
           type='Other'
-          counter={tickets}
-          setCounter={setTickets}
+          ticketCounter={concessionTicket}
         />
         <PassengerItem 
           logo={<Child className='passengeritem_logo'/>}
           title='Children'
           info='5 - 18 without a bus pass'
           type='Other'
-          counter={tickets}
-          setCounter={setTickets}
+          ticketCounter={childTicket}
         />
         <PassengerItem 
           logo={<Baby className='passengeritem_logo'/>}
           title='Young Children'
           info='Under 5'
           type='Other'
-          counter={tickets}
-          setCounter={setTickets}
+          ticketCounter={babyTicket}
         />
         <h3>Extras</h3>
         <PassengerItem 
@@ -61,16 +62,14 @@ function Passengers({ tickets, setTickets }) {
           title='Wheelchairs'
           info='One space per bus'
           type='Other'
-          counter={tickets}
-          setCounter={setTickets}
+          ticketCounter={wheelchairTicket}
         />
         <PassengerItem 
           logo={<Bike className='passengeritem_logo'/>}
           title='Bicycles'
           info='Two spaces per bus'
           type='Other'
-          counter={tickets}
-          setCounter={setTickets}
+          ticketCounter={bikeTicket}
         />
       </div>
     </div>

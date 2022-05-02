@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux'; 
 
-function Dropdown({ label, stops, setStop }) {
+function Dropdown({ label, setStop }) {
+  const stops = useSelector((state) => state.inputData.stops);
   const [stopName, setStopName] = useState(''); 
+  const dispatch = useDispatch(); 
 
   const selectStop = (stop) => {
-    setStop(stop.id);
     setStopName(stop.stop_name);
+    dispatch(setStop(stop.id));
   }
 
   return (

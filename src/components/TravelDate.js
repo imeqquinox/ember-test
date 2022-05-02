@@ -1,25 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import { useSelector, useDispatch } from 'react-redux';
-import { outDateChange } from './slices/OutDateSlice';
-import { returnDateChange } from './slices/ReturnDateSlice';
+import { setStartDate, setEndDate } from './slices/InputSlice';
 
 import 'react-calendar/dist/Calendar.css';
 
-function TravelDate({ startDate, endDate, setStart, setEnd }) {
-  const outDate = useSelector((state) => state.outDate.value);
-  const returnDate = useSelector((state) => state.returnDate.value);
+function TravelDate() {
+  const startDate = useSelector((state) => state.inputData.startDate);
+  const endDate = useSelector((state) => state.inputData.endDate); 
+  const [addReturn, setAddReturn] = useState(false);
   const dispatch = useDispatch();
 
   return (
     <div className='traveldate_container'>
       <label>Out</label>
-      {/* <Calendar onChange={(value) => dispatch(outDateChange(value))} value={outDate}/> */}
-      <Calendar onChange={setStart} value={startDate} />
+      <Calendar onChange={(value) => dispatch(setStartDate(value))} value={startDate}/>
 
       <label>Return</label>
-      {/* <Calendar onChange={(value) => dispatch(returnDateChange(value))} value={returnDate}/> */}
-      <Calendar onChange={setEnd} value={endDate} />
+      {
+        addReturn ?
+          <>
+            <Calendar onChange={(value) => dispatch(setEndDate(value))} value={endDate}/>
+            <label onClick={() => setAddReturn(false)}>Remove Return</label>
+          </>
+        :
+          <>
+            <br />
+            <label onClick={() => setAddReturn(true)}>Add Return</label>
+          </>
+      }
+      
     </div>
   )
 }

@@ -1,24 +1,20 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { startLocationChange } from './slices/StartLocationSlice';
-import { endLocationChange } from './slices/EndLocationSlice';
+import React from 'react';
+import { setStartLocation, setEndLocation } from './slices/InputSlice';
 
 import Dropdown from './Dropdown';
 
 // Todo: 
 // Add error if the start and end locations are the same
 
-function Route({ stops, setStartLocation, setEndLocation }) {
+function Route() {
   return (
     <div className='route_container'>
       <Dropdown 
         label='From'
-        stops={stops}
         setStop={setStartLocation}
       />
       <Dropdown 
         label='To'
-        stops={stops}
         setStop={setEndLocation}
       />
     </div>

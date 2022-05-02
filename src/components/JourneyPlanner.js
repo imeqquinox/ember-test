@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { addStop } from './slices/InputSlice';
 
 import Route from './Route';
 import TravelDate from './TravelDate';
@@ -13,12 +15,7 @@ import Search from './Search';
 // Go back to using useState ATM rework redux at the end potentially.                                                        
 
 function JourneyPlanner({ setQuoteData }) {
-  const [stops, setStops] = useState([]);
-  const [startLocation, setStartLocation] = useState(0); 
-  const [endLocation, setEndLocation] = useState(0); 
-  const [startDate, setStartDate] = useState(new Date()); 
-  const [endDate, setEndDate] = useState(null); 
-  const [tickets, setTickets] = useState(1); 
+  const dispatch = useDispatch(); 
 
   // On mount
   useEffect(() => {
@@ -30,20 +27,16 @@ function JourneyPlanner({ setQuoteData }) {
     try {
       const result = await fetch('https://api.ember.to/v1/locations/?type=STOP_AREA'); 
       const data = await result.json(); 
-      //console.log(data);
       
-      // Format data
-      let temp = []; 
+      // Format data 
       let today = new Date(); 
       for (let i = 0; i < data.length; i++) {
         // Make sure the stop is bookable from today and that today is not past the stop's end date.
         if ((data[i].bookable_from == null || today > new Date(data[i].bookable_from))
           && (data[i].bookable_until == null || today < new Date(data[i].bookable_until))) {
-            // Potentailly sort all stops alphabetically 
-            temp.push({ stop_name: data[i].name, detailed_name: data[i].detailed_name, id: data[i].id });
+            dispatch(addStop({ stop_name: data[i].name, detailed_name: data[i].detailed_name, id: data[i].id }));
           }
       }
-      setStops(temp);
     } catch(err) {
       console.log(err);
     }
@@ -51,31 +44,13 @@ function JourneyPlanner({ setQuoteData }) {
 
   return (
     <div className='planner_container'>
-      <Route 
-        stops={stops}
-        setStartLocation={setStartLocation}
-        setEndLocation={setEndLocation}
-      />
+      <Route />
       <br />
-      <TravelDate 
-        startDate={startDate}
-        endDate={endDate}
-        setStart={setStartDate}
-        setEnd={setEndDate}
-      />
+      <TravelDate />
       <br />
-      <Passengers 
-        tickets={tickets}
-        setTickets={setTickets}
-      />
+      <Passengers />
       <br />
-      <Search 
-        startLocation={startLocation}
-        endLocation={endLocation}
-        startDate={startDate}
-        endDate={endDate}
-        setQuoteData={setQuoteData}
-      />
+      <Search />
     </div>
   )
 }
