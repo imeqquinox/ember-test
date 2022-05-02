@@ -6,7 +6,7 @@ import { returnDateChange } from './slices/ReturnDateSlice';
 
 import 'react-calendar/dist/Calendar.css';
 
-function TravelDate() {
+function TravelDate({ startDate, endDate, setStart, setEnd }) {
   const outDate = useSelector((state) => state.outDate.value);
   const returnDate = useSelector((state) => state.returnDate.value);
   const dispatch = useDispatch();
@@ -14,10 +14,12 @@ function TravelDate() {
   return (
     <div className='traveldate_container'>
       <label>Out</label>
-      <Calendar onChange={(value) => dispatch(outDateChange(value))} value={outDate}/>
+      {/* <Calendar onChange={(value) => dispatch(outDateChange(value))} value={outDate}/> */}
+      <Calendar onChange={setStart} value={startDate} />
 
       <label>Return</label>
-      <Calendar onChange={(value) => dispatch(returnDateChange(value))} value={returnDate}/>
+      {/* <Calendar onChange={(value) => dispatch(returnDateChange(value))} value={returnDate}/> */}
+      <Calendar onChange={setEnd} value={endDate} />
     </div>
   )
 }

@@ -10,16 +10,16 @@ import PassengerItem from './PassengerItem';
 import AdultCounter from './ticket counters/AdultCounter';
 import Counter from './Counter';
 
-function Passengers() {
+function Passengers({ tickets, setTickets }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className='passengers_container'>
-      <span>
+      {/* <span>
         People, Bikes &amp; Wheelchairs
       </span>
       <br />
-      <label>1 Adult (no concessions)</label>
+      <label>1 Adult (no concessions)</label> */}
       
       <div className='passengers_menu'>
         <h3>Passengers</h3>
@@ -28,28 +28,32 @@ function Passengers() {
           title='Adult'
           info='Over 18'
           type='Adult'
-          counter={<AdultCounter />}
+          tickets={tickets}
+          setTickets={setTickets}
         />
         <PassengerItem 
           logo={<Concession className='passengeritem_logo'/>}
           title='Concessions'
           info='Scottish bus pass holders'
           type='Other'
-          counter={<Counter />}
+          counter={tickets}
+          setCounter={setTickets}
         />
         <PassengerItem 
           logo={<Child className='passengeritem_logo'/>}
           title='Children'
           info='5 - 18 without a bus pass'
           type='Other'
-          counter={<Counter />}
+          counter={tickets}
+          setCounter={setTickets}
         />
         <PassengerItem 
           logo={<Baby className='passengeritem_logo'/>}
           title='Young Children'
           info='Under 5'
           type='Other'
-          counter={<Counter />}
+          counter={tickets}
+          setCounter={setTickets}
         />
         <h3>Extras</h3>
         <PassengerItem 
@@ -57,14 +61,16 @@ function Passengers() {
           title='Wheelchairs'
           info='One space per bus'
           type='Other'
-          counter={<Counter />}
+          counter={tickets}
+          setCounter={setTickets}
         />
         <PassengerItem 
           logo={<Bike className='passengeritem_logo'/>}
           title='Bicycles'
           info='Two spaces per bus'
           type='Other'
-          counter={<Counter />}
+          counter={tickets}
+          setCounter={setTickets}
         />
       </div>
     </div>

@@ -1,19 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function Dropdown(props) {
+function Dropdown({ label, stops, setStop }) {
+  const [stopName, setStopName] = useState(''); 
+
+  const selectStop = (stop) => {
+    setStop(stop.id);
+    setStopName(stop.stop_name);
+  }
+
   return (
-   <div className='dropdown_container'>
-      <label>
-        {props.label}
-        <br />
-        <input type='text' name={props.value} list='stops' placeholder='Street or town' onChange={(e) => props.setStop(e.target.value)}/>
-          <datalist id='stops'>
-            {props.options.map((option) => (
-              <option value={option.stop_name}>{option.stop_name}</option>
-            ))}
-          </datalist>
-      </label>
-    </div>
+  <div className='dropdown_container'>
+    <label>
+      {label}
+      <br />
+      <input type='text' value={stopName} placeholder='Street or town' onChange={(event) => setStopName(event.target.value)} />
+      <br />
+      {stops.filter((value) => {
+        if (stopName === "") {
+          return value;
+        } else if (value.stop_name.toLowerCase() === stopName.toLocaleLowerCase()) {
+          return null;
+        } else if (value.stop_name.toLowerCase().includes(stopName.toLowerCase())) {
+          return value;
+        }
+      }).map((stop) => (
+        <>
+          <span onClick={() => selectStop(stop)}>{stop.stop_name}</span>
+          <br />
+        </>
+      ))}
+    </label>
+  </div>
   )
 }
 

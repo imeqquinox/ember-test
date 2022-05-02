@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 
-function Counter() {
-  const [counter, setCounter] = useState(0);
+function Counter({ counter, setCounter }) {
+  //const [counter, setCounter] = useState(0);
 
   const increase = () => {
-    setCounter(count => count + 1);
+    //setCounter(count => count + 1);
+    setCounter(count => count + 1); 
   }
 
   const decrease = () => {
     if (counter > 0) {
+      //setCounter(count => count - 1);
       setCounter(count => count - 1);
     }
   }
