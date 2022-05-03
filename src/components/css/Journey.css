@@ -1,0 +1,23 @@
+.journey_container {
+  display: flex;
+  width: 100%;
+  border: solid 1px rgb(189, 189, 189);
+  border-bottom: none;
+  color: black;
+  background-color: white;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.journey_container:hover {
+  background-color: #F5F7F9;
+}
+
+.journey_seats {
+  color: grey;
+}
+
+.journey_rightside {
+  margin-left: auto;
+  margin-right: 5px;
+}

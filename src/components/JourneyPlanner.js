@@ -6,15 +6,8 @@ import Route from './Route';
 import TravelDate from './TravelDate';
 import Passengers from './Passengers';
 import Search from './Search';
-
-// NEEDS TO BE DONE BY TOMORROW
-// - Sort response with stop_areas AND stop_points (For the list of 14 stops with correct names) & (booking_from and booking_until_) 
-
-// NOTES: 
-// Check will be in individual components, potentially dont even need a search component since checks are here. 
-// Go back to using useState ATM rework redux at the end potentially.                                                        
-
-function JourneyPlanner({ setQuoteData }) {
+                                                        
+function JourneyPlanner() {
   const dispatch = useDispatch(); 
 
   // On mount

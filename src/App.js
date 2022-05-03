@@ -1,29 +1,18 @@
 import './App.css';
-import { useEffect, useState } from 'react';
 
 import NavBar from './components/NavBar';
 import JourneyPlanner from './components/JourneyPlanner';
 import QuotePage from './components/QuotePage';
+import { useSelector } from 'react-redux';
 
 function App() {
-  const [quoteData, setQuoteData] = useState([]);
-  const [found, setFound] = useState(false); 
-
-  useEffect(() => {
-    if (quoteData.length === 0) {
-      setFound(false);
-    } else 
-    {
-      setFound(true);
-    }
-  }, [quoteData])
+  const bookingFound = useSelector((state) => state.outputData.bookingFound); 
 
   return (
     <div className="App">
-      {found ? 
-      <QuotePage 
-        quoteData={quoteData}
-      /> 
+      {
+        bookingFound ? 
+          <QuotePage /> 
       :
       <>
         <header>
@@ -45,10 +34,9 @@ function App() {
             <a href='/'>Track my bus</a>
           </div>
         </header>
-        <JourneyPlanner 
-          setQuoteData={setQuoteData}
-        />
-      </> }
+        <JourneyPlanner />
+      </> 
+      }
     </div>
   );
 }
