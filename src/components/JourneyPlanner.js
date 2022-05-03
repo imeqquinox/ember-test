@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { addStop } from './slices/InputSlice';
+import { addStop, sortStops } from './slices/InputSlice';
 
 import Route from './Route';
 import TravelDate from './TravelDate';
@@ -21,11 +21,6 @@ function JourneyPlanner() {
       const result = await fetch('https://api.ember.to/v1/locations/?type=STOP_AREA'); 
       const data = await result.json(); 
 
-      // const result2 = await fetch('https://api.ember.to/v1/locations/?type=STOP_POINT'); 
-      // const data2 = await result2.json(); 
-      
-      // console.log(data2);
-
       // Format data 
       let today = new Date(); 
       for (let i = 0; i < data.length; i++) {
@@ -33,8 +28,10 @@ function JourneyPlanner() {
         if ((data[i].bookable_from == null || today > new Date(data[i].bookable_from))
           && (data[i].bookable_until == null || today < new Date(data[i].bookable_until))) {
               dispatch(addStop({ stop_name: data[i].name, detailed_name: data[i].detailed_name, id: data[i].id }));
-            }
-          }
+        }
+      }
+
+      dispatch(sortStops());
     } catch(err) {
       console.log(err);
     }

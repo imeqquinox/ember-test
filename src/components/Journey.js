@@ -4,7 +4,6 @@ import './css/Journey.css';
 
 function Journey({ departureTime, arrivalTime, availability, ticketPrice, tickets }) {  
   const [totalPrice, setTotalPrice] = useState(0);   
-  const [totalTickets, setTotalTickets] = useState(0);
   const [available, setAvailable] = useState(true);
 
   useEffect(() => {
@@ -30,8 +29,6 @@ function Journey({ departureTime, arrivalTime, availability, ticketPrice, ticket
     for (const key in tickets) {
       totalTickets += tickets[key];
     }
-  
-    setTotalTickets(totalTickets); 
 
     if (totalTickets > availability) {
       setAvailable(false);

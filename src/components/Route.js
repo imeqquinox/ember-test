@@ -11,7 +11,6 @@ function Route() {
         label='From'
         setStop={setStartLocation}
       />
-      {/* <StopsMap /> */}
       <br />
       <Dropdown 
         label='To'

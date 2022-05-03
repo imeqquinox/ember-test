@@ -11,17 +11,31 @@ function Dropdown({ label, setStop }) {
     dispatch(setStop(stop.id));
   }
 
+  const handleInput = (event) => {
+    setStopName(event);
+    const result = stops.filter((stop) => {
+      if (event.toLowerCase() === stop.stop_name.toLowerCase()) {
+        return stop.id;
+      } 
+    });
+
+    const correct = result[0].id != null;
+    if (correct) {
+      dispatch(setStop(result[0].id));
+    }
+  }
+
   return (
   <div className='dropdown_container'>
     <label>
       {label}
       <br />
-      <input type='text' value={stopName} placeholder='Street or town' onChange={(event) => setStopName(event.target.value)} />
+      <input type='text' value={stopName} placeholder='Street or town' onChange={(event) => handleInput(event.target.value)} />
       <br />
       {stops.filter((value) => {
         if (stopName === "") {
           return value;
-        } else if (value.stop_name.toLowerCase() === stopName.toLocaleLowerCase()) {
+        } else if (value.stop_name.toLowerCase() === stopName.toLowerCase()) {
           return null;
         } else if (value.stop_name.toLowerCase().includes(stopName.toLowerCase())) {
           return value;

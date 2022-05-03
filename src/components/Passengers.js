@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux';
 
 import { ReactComponent as Adult } from '../assets/adult.svg';
@@ -16,16 +16,9 @@ function Passengers() {
   const babyTicket = useSelector((state) => state.inputData.tickets.baby); 
   const wheelchairTicket = useSelector((state) => state.inputData.tickets.wheelchair); 
   const bikeTicket = useSelector((state) => state.inputData.tickets.bike);
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className='passengers_container'>
-      {/* <span>
-        People, Bikes &amp; Wheelchairs
-      </span>
-      <br />
-      <label>1 Adult (no concessions)</label> */}
-      
       <div className='passengers_menu'>
         <h3>Passengers</h3>
         <PassengerItem 

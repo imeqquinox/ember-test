@@ -21,6 +21,9 @@ export const InputSlice = createSlice({
     addStop: (state, action) => {
       state.stops.push(action.payload); 
     },
+    sortStops: (state) => {
+      state.stops.sort((a, b) => a.stop_name.localeCompare(b.stop_name));
+    },
     setStartLocation: (state, action) => {
       state.startLocation = action.payload; 
     },
@@ -106,6 +109,7 @@ export const InputSlice = createSlice({
 
 export const { 
   addStop, 
+  sortStops,
   setStartLocation, 
   setEndLocation,
   setStartDate, 

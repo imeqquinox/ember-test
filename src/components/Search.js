@@ -38,11 +38,6 @@ function Search() {
     today.setHours(0, 0, 0, 0);
     today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
     today = today.toISOString();
-
-    // Outdatestart works, just need to set the
-    // Make sure the start date is not before today. 
-    // Check that the end date is not before today.
-    // Check that the end date is not before the start date. 
     if (outDateStart < today) {
       dateErr = "Please enter a valid out date.";
     } else if (endDate != null && (endDate < today)) { 
