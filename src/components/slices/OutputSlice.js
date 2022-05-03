@@ -3,19 +3,23 @@ import { createSlice } from '@reduxjs/toolkit';
 export const OutputSlice = createSlice({
   name: 'outputData', 
   initialState: {
-    journey: [],
+    outJourney: [],
+    returnJourney: [],
     bookingFound: false, 
   },
   reducers: {
-    addJourney: (state, action) => {
-      state.journey.push(action.payload);
+    addOutJourney: (state, action) => {
+      state.outJourney.push(action.payload);
     }, 
+    addReturnJourney: (state, action) => {
+      state.returnJourney.push(action.payload);
+    },
     setBookingFound: (state, action) => {
       state.bookingFound = action.payload; 
     },
   }
 });
 
-export const { addJourney, setBookingFound } = OutputSlice.actions; 
+export const { addOutJourney, addReturnJourney, setBookingFound } = OutputSlice.actions; 
 
 export default OutputSlice.reducer;

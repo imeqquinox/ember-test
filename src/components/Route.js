@@ -2,9 +2,7 @@ import React from 'react';
 import { setStartLocation, setEndLocation } from './slices/InputSlice';
 
 import Dropdown from './Dropdown';
-
-// Todo: 
-// Add error if the start and end locations are the same
+import StopsMap from './StopsMap';
 
 function Route() {
   return (
@@ -13,6 +11,8 @@ function Route() {
         label='From'
         setStop={setStartLocation}
       />
+      {/* <StopsMap /> */}
+      <br />
       <Dropdown 
         label='To'
         setStop={setEndLocation}

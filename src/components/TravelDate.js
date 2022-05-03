@@ -16,6 +16,7 @@ function TravelDate() {
       <label>Out</label>
       <Calendar onChange={(value) => dispatch(setStartDate(value))} value={startDate}/>
 
+      <br />
       <label>Return</label>
       {
         addReturn ?
