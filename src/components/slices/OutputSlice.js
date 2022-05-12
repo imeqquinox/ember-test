@@ -4,8 +4,7 @@ export const OutputSlice = createSlice({
   name: 'outputData', 
   initialState: {
     outJourney: [],
-    returnJourney: [],
-    bookingFound: false, 
+    returnJourney: []
   },
   reducers: {
     addOutJourney: (state, action) => {
@@ -14,12 +13,17 @@ export const OutputSlice = createSlice({
     addReturnJourney: (state, action) => {
       state.returnJourney.push(action.payload);
     },
-    setBookingFound: (state, action) => {
-      state.bookingFound = action.payload; 
-    },
+    clearJourneys: (state) => {
+      state.outJourney = []; 
+      state.returnJourney = [];
+    }
   }
 });
 
-export const { addOutJourney, addReturnJourney, setBookingFound } = OutputSlice.actions; 
+export const { 
+  addOutJourney, 
+  addReturnJourney,  
+  clearJourneys 
+} = OutputSlice.actions; 
 
 export default OutputSlice.reducer;

@@ -42,8 +42,11 @@ function Dropdown({ label, setStop }) {
         }
       }).map((stop) => (
         <>
-          <span className='dropdown_option' onClick={() => selectStop(stop)}>{stop.stop_name}</span>
-          <br />
+          <div onClick={() => selectStop(stop)}>
+            <span className='dropdown_option'>{stop.stop_name}</span>
+            <br />
+            <span className='dropdown_optionsub'>{stop.detailed_name}</span>
+          </div>
         </>
       ))}
     </label>

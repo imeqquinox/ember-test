@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import './css/QuotePage.css';
-import Journey from './Journey';
+import Journey from '../components/Journey';
 import { ReactComponent as Logo } from '../assets/logo.svg';
 
 function QuotePage() {

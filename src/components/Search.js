@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { addOutJourney, addReturnJourney, setBookingFound } from './slices/OutputSlice';
+import { addOutJourney, addReturnJourney, clearJourneys } from './slices/OutputSlice';
+import { useNavigate } from 'react-router-dom';
 
 function Search() {
   const startLocation = useSelector((state) => state.inputData.startLocation); 
@@ -11,6 +12,7 @@ function Search() {
   const [isValid, setIsValid] = useState(true); 
   const [errMsg, setErrMsg] = useState(""); 
   const dispatch = useDispatch(); 
+  const navigate = useNavigate(); 
 
   let outDateStart = startDate;
   let outDateEnd = null; 
@@ -114,13 +116,14 @@ function Search() {
   }
 
   const bookingQuery = async () => {
-    console.log(outDateStart);
+    dispatch(clearJourneys());
+
     // 1 way trip API call
     if (returnDateStart === null) {
       const result = await fetch(`https://api.ember.to/v1/quotes/?origin=${startLocation}&destination=${endLocation}&departure_date_from=${outDateStart}&arrival_date_to=${outDateEnd}`); 
       const data = await result.json(); 
       formatData(data, addOutJourney); 
-      dispatch(setBookingFound(true));
+      navigate('/quote');
     } else {
       // return trip API call
       const outTrip = await fetch(`https://api.ember.to/v1/quotes/?origin=${startLocation}&destination=${endLocation}&departure_date_from=${outDateStart}&arrival_date_to=${outDateEnd}`);
@@ -129,7 +132,7 @@ function Search() {
       const returnTripData = await returnTrip.json();
       formatData(outTripdata, addOutJourney);
       formatData(returnTripData, addReturnJourney);
-      dispatch(setBookingFound(true));
+      navigate('/quote');
     }    
   }
 
