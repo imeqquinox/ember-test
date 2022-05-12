@@ -3,29 +3,34 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import './css/Dropdown.css';
 
-function Dropdown({ label, setStop }) {
+function Dropdown({ label, setStop, defaultStop }) {
   const stops = useSelector((state) => state.inputData.stops);
-  const [stopName, setStopName] = useState(''); 
+  const [stopName, setStopName] = useState(defaultStop); 
   const [focused, setFocused] = useState(false);
   const onFocus = () => setFocused(true); 
   const dispatch = useDispatch(); 
 
+  // Select stop from dropdown
   const selectStop = (stop) => {
     setStopName(stop.stop_name + " (" + stop.detailed_name + ")");
     dispatch(setStop(stop.id));
   }
 
+  // 
   const handleInput = (value) => {
     setStopName(value);
     const result = stops.filter((stop) => {
-      if (value.toLowerCase() === stop.stop_name.toLowerCase()) {
+      if (value.toLowerCase() === (stop.stop_name.toLowerCase() + " (" + stop.detailed_name.toLowerCase() + ")")) {
         return stop.id;
       } 
     });
 
-    const correct = result[0].id != null;
-    if (correct) {
-      dispatch(setStop(result[0].id));
+    if (result.length > 0) {
+      if (result[0].id != null) {
+        dispatch(setStop(result[0].id));
+      }
+    } else {
+      dispatch(setStop(0));
     }
   }
 
@@ -47,25 +52,25 @@ function Dropdown({ label, setStop }) {
     { 
     focused 
     ?
-    stops.filter((value) => {
-      if (stopName === "") {
-        return value;
-      } else if ((value.stop_name.toLowerCase() === stopName.toLowerCase()) || (value.detailed_name.toLowerCase() === stopName.toLowerCase())) {
-        return value;
-      } else if ((value.stop_name.toLowerCase().includes(stopName.toLowerCase())) || (value.detailed_name.toLowerCase().includes(stopName.toLowerCase()))) {
-        return value;
-      }
-    }).map((stop) => (
-      <>
-        <div className='dropdown_optioncontainer' onClick={() => selectStop(stop)}>
-          <span className='dropdown_option'>{stop.stop_name}</span>
-          <br />
-          <span className='dropdown_optionsub'>{stop.detailed_name}</span>
-        </div>
-      </>
-    ))
+      stops.filter((value) => {
+        if (stopName === "") {
+          return value;
+        } else if ((value.stop_name.toLowerCase() === stopName.toLowerCase()) || (value.detailed_name.toLowerCase() === stopName.toLowerCase())) {
+          return value;
+        } else if ((value.stop_name.toLowerCase().includes(stopName.toLowerCase())) || (value.detailed_name.toLowerCase().includes(stopName.toLowerCase()))) {
+          return value;
+        }
+      }).map((stop) => (
+        <>
+          <div className='dropdown_optioncontainer' onClick={() => selectStop(stop)}>
+            <span className='dropdown_option'>{stop.stop_name}</span>
+            <br />
+            <span className='dropdown_optionsub'>{stop.detailed_name}</span>
+          </div>
+        </>
+      ))
     :
-    null
+      null
     }
   </div>
   )

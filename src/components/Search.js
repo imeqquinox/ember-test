@@ -1,16 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { addOutJourney, addReturnJourney, clearJourneys } from './slices/OutputSlice';
 import { useNavigate } from 'react-router-dom';
 
-function Search() {
+function Search({ routeValid, datesValid, passengersValid }) {
   const startLocation = useSelector((state) => state.inputData.startLocation); 
   const endLocation = useSelector((state) => state.inputData.endLocation);
   const startDate = useSelector((state) => state.inputData.startDate); 
   const endDate = useSelector((state) => state.inputData.endDate); 
-  const tickets = useSelector((state) => state.inputData.tickets);
   const [isValid, setIsValid] = useState(true); 
-  const [errMsg, setErrMsg] = useState(""); 
   const dispatch = useDispatch(); 
   const navigate = useNavigate(); 
 
@@ -19,48 +17,15 @@ function Search() {
   let returnDateStart = endDate; 
   let returnDateEnd = null;
 
+  useEffect(() => {
+    checkQuery(); 
+  }, [routeValid, datesValid, passengersValid]);
+
   const checkQuery = () => {
-    formatDates(); 
-    setIsValid(true);
-    let locationErr = ""; 
-    let dateErr = ""; 
-    let ticketErr = ""; 
-     
-    let totalTickets = 0; 
-
-    // Lets check the start and end locations aren't the same. 
-    if (startLocation === 0 || endLocation === 0) { 
-      locationErr = "Please enter a valid location."; 
-    } else if (startLocation === endLocation) {
-      locationErr = "Your start location and end location are the same.";
-    }
-
-    // Check the start and end dates 
-    let today = new Date();
-    today.setHours(0, 0, 0, 0);
-    today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
-    today = today.toISOString();
-    if (outDateStart < today) {
-      dateErr = "Please enter a valid out date.";
-    } else if (endDate != null && (endDate < today)) { 
-      dateErr = "Please enter a valid return date.";
-    } else if (endDate != null && (endDate < startDate)) {
-      dateErr = "Your return date if before your out date."; 
-    }
-
-    // Check number of tickets 
-    for (const key in tickets) {
-      totalTickets += tickets[key];
-    }
-    if (totalTickets === 0) {
-      ticketErr = "You must add at least 1 ticket."; 
-    }
-
-    if (locationErr === "" && dateErr === "" && ticketErr === "") {
-      bookingQuery(); 
+    if (routeValid && datesValid && passengersValid) {
+      setIsValid(true); 
     } else {
-      setIsValid(false); 
-      setErrMsg(locationErr + dateErr + ticketErr);
+      setIsValid(false);
     }
   }
 
@@ -113,6 +78,8 @@ function Search() {
       returnDateStart = returnDateStart.toISOString(); 
       returnDateEnd = returnDateEnd.toISOString();
     }
+
+    bookingQuery();
   }
 
   const bookingQuery = async () => {
@@ -159,15 +126,7 @@ function Search() {
   }
 
   return (
-    <>
-    <button onClick={checkQuery}>Search</button>
-    {
-      isValid ? 
-      null
-    : 
-      <div>{errMsg}</div> 
-    }
-    </>
+    <button disabled={!isValid} onClick={formatDates}>Search</button>
   )
 }
 

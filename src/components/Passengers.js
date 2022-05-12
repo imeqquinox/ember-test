@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 
 import { ReactComponent as Adult } from '../assets/adult.svg';
@@ -9,13 +9,28 @@ import { ReactComponent as Concession } from '../assets/concessions.svg';
 import { ReactComponent as Wheelchair } from '../assets/wheelchair.svg';
 import PassengerItem from './PassengerItem';
 
-function Passengers() {
+function Passengers({ isValid, setValid}) {
   const adultTicket = useSelector((state) => state.inputData.tickets.adult);
   const concessionTicket = useSelector((state) => state.inputData.tickets.concession);
   const childTicket = useSelector((state) => state.inputData.tickets.child); 
   const babyTicket = useSelector((state) => state.inputData.tickets.baby); 
   const wheelchairTicket = useSelector((state) => state.inputData.tickets.wheelchair); 
   const bikeTicket = useSelector((state) => state.inputData.tickets.bike);
+
+  // Check for changes to ticket values
+  useEffect(() => {
+    handleError(); 
+  }, [adultTicket, concessionTicket, childTicket, babyTicket, wheelchairTicket, bikeTicket]);
+
+  const handleError = () => {
+    let totalTickets = adultTicket + concessionTicket + babyTicket + wheelchairTicket + bikeTicket; 
+
+    if (totalTickets < 1) {
+      setValid(false);
+    } else {
+      setValid(true);
+    }
+  }
 
   return (
     <div className='passengers_container'>
@@ -65,6 +80,13 @@ function Passengers() {
           ticketCounter={bikeTicket}
         />
       </div>
+      {
+        isValid 
+        ? 
+          null 
+        : 
+          <span className='booking_error'>You must add at least 1 ticket.</span>
+      }
     </div>
   )
 }

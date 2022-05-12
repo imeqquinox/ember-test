@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addStop, sortStops } from './slices/InputSlice';
 
@@ -10,6 +10,9 @@ import Search from './Search';
 function JourneyPlanner() {
   const stops = useSelector((state) => state.inputData.stops); 
   const dispatch = useDispatch(); 
+  const [isRouteValid, setRouteValid] = useState(false);
+  const [isDatesValid, setDatesValid] = useState(false); 
+  const [isPassengersValid, setPassengersValid] = useState(false);
 
   // On mount
   useEffect(() => {
@@ -19,12 +22,6 @@ function JourneyPlanner() {
   // API call for stop areas
   const processRequest = async () => {    
     try {
-      // const test1 = await fetch('https://api.ember.to/v1/locations/?type=STOP_AREA'); 
-      // const test2 = await fetch('https://api.ember.to/v1/locations/?type=STOP_POINT'); 
-      // const data1 = await test1.json(); 
-      // const data2 = await test2.json();
-      // console.log(data1);
-      // console.log(data2);
       if (!stops.length) {
         const result = await fetch('https://api.ember.to/v1/locations/?type=STOP_AREA'); 
         const data = await result.json(); 
@@ -48,13 +45,17 @@ function JourneyPlanner() {
 
   return (
     <div className='planner_container'>
-      <Route />
+      <Route isValid={isRouteValid} setValid={setRouteValid} />
       <br />
-      <TravelDate />
+      <TravelDate isValid={isDatesValid} setValid={setDatesValid}/>
       <br />
-      <Passengers />
+      <Passengers isValid={isPassengersValid} setValid={setPassengersValid} />
       <br />
-      <Search />
+      <Search 
+        routeValid={isRouteValid}
+        datesValid={isDatesValid} 
+        passengersValid={isPassengersValid}
+      />
     </div>
   )
 }

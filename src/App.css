@@ -34,3 +34,7 @@
 .planner_container {
   margin: 30px 20%;
 }
+
+.booking_error {
+  color: red;
+}

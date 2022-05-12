@@ -4,8 +4,8 @@ export const InputSlice = createSlice({
   name: 'inputData', 
   initialState: { 
     stops: [], 
-    startLocation: 0, 
-    endLocation: 0, 
+    startLocation: 13, 
+    endLocation: 42, 
     startDate: new Date(), 
     endDate: null, 
     tickets: {
