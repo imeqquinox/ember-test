@@ -19,12 +19,12 @@ function JourneyPlanner() {
   // API call for stop areas
   const processRequest = async () => {    
     try {
-      const test1 = await fetch('https://api.ember.to/v1/locations/?type=STOP_AREA'); 
-      const test2 = await fetch('https://api.ember.to/v1/locations/?type=STOP_POINT'); 
-      const data1 = await test1.json(); 
-      const data2 = await test2.json();
-      console.log(data1);
-      console.log(data2);
+      // const test1 = await fetch('https://api.ember.to/v1/locations/?type=STOP_AREA'); 
+      // const test2 = await fetch('https://api.ember.to/v1/locations/?type=STOP_POINT'); 
+      // const data1 = await test1.json(); 
+      // const data2 = await test2.json();
+      // console.log(data1);
+      // console.log(data2);
       if (!stops.length) {
         const result = await fetch('https://api.ember.to/v1/locations/?type=STOP_AREA'); 
         const data = await result.json(); 

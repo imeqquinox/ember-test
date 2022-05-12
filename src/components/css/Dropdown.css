@@ -1,0 +1,10 @@
+.dropdown_optioncontainer {
+  cursor: pointer;
+  border-bottom: 1px solid black;
+  width: 200px;
+}
+
+.dropdown_optionsub {
+  color: grey;
+  font-size: 0.8rem;
+}
