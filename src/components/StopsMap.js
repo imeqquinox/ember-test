@@ -24,7 +24,7 @@ function StopsMap() {
       <Map
         {...viewport}
         
-        mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+        mapboxAccessToken="pk.eyJ1IjoiZXFxdWlub3giLCJhIjoiY2wycGtjdHExMHY5dDNnbWZsc29uNWNkMiJ9.nlq1jNyyG73Mo8MoPWBVqg"
       >  
         {stops.map(stop => (
           <Marker 
