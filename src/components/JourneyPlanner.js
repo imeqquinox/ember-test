@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addStop, sortStops } from './slices/InputSlice';
 
+import './css/JourneyPlanner.css';
 import Route from './Route';
 import TravelDate from './TravelDate';
 import Passengers from './Passengers';

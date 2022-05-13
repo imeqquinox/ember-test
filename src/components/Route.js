@@ -30,26 +30,27 @@ function Route({ isValid, setValid }) {
   }
 
   return (
-    <div className='route_container'>
-      <Dropdown 
-        label='From'
-        setStop={setStartLocation}
-        defaultStop='Dundee (Greenmarket)'
-      />
-      <br />
-      <Dropdown 
-        label='To'
-        setStop={setEndLocation}
-        defaultStop='Edinburgh (St Andrew Square)'
-      />
-      <br /> 
+    <div className='routemain_container'>
+      <div className='route_container'>
+        <Dropdown 
+          label='From'
+          setStop={setStartLocation}
+          defaultStop='Dundee (Greenmarket)'
+        />
+        <Dropdown 
+          label='To'
+          setStop={setEndLocation}
+          defaultStop='Edinburgh (St Andrew Square)'
+        />
+        
+      </div>
       {
-        isValid 
-        ? 
-          null 
-        : 
-          <span className='booking_error'>{errText}</span>
-      }
+          isValid 
+          ? 
+            null 
+          : 
+            <span className='booking_error'>{errText}</span>
+        }
     </div>
   )
 }

@@ -126,7 +126,7 @@ function Search({ routeValid, datesValid, passengersValid }) {
   }
 
   return (
-    <button disabled={!isValid} onClick={bookingQuery}>Search</button>
+    <button className='search' disabled={!isValid} onClick={bookingQuery}>Search</button>
   )
 }
 
