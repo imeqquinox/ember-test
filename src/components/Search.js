@@ -8,6 +8,7 @@ function Search({ routeValid, datesValid, passengersValid }) {
   const endLocation = useSelector((state) => state.inputData.endLocation);
   const startDate = useSelector((state) => state.inputData.startDate); 
   const endDate = useSelector((state) => state.inputData.endDate); 
+  const returnTrip = useSelector((state) => state.inputData.returnTrip); 
   const [isValid, setIsValid] = useState(true); 
   const dispatch = useDispatch(); 
   const navigate = useNavigate(); 
@@ -29,64 +30,14 @@ function Search({ routeValid, datesValid, passengersValid }) {
     }
   }
 
-  const formatDates = () => {
-    let temp = new Date();
-    if (outDateStart.toDateString() === temp.toDateString()) {
-      // If today set to time right now 
-      outDateStart.setHours(temp.getHours()); 
-      outDateStart.setMinutes(temp.getMinutes());
-      outDateStart.setMinutes(outDateStart.getMinutes() - outDateStart.getTimezoneOffset());
-    } else {
-      // Set as midnight 
-      outDateStart.setHours(0, 0, 0, 0);
-      outDateStart.setMinutes(outDateStart.getMinutes() - outDateStart.getTimezoneOffset());
-    }
-    
-
-    // Check if there is a return or not 
-    // If not (1 way), set the endDate to midnight of current day
-    // Else set return date, with returnDate[0] to midnight of return day and returnDate[1] to midnight of next day
-    if (returnDateStart === null || returnDateStart.toDateString() === outDateStart.toDateString()) {
-      // 1 way trip, only show todays trips.
-      outDateEnd = new Date(); 
-      outDateEnd.setDate(outDateStart.getDate() + 1); 
-      outDateEnd.setHours(0, 0, 0, 0); 
-      // British summer time 
-      outDateEnd.setMinutes(outDateEnd.getMinutes() - outDateEnd.getTimezoneOffset());
-
-      outDateStart = outDateStart.toISOString();
-      outDateEnd = outDateEnd.toISOString();
-    } else {
-      // 2 way trip, 
-      // Out trip
-      outDateEnd = new Date(); 
-      outDateEnd.setDate(outDateStart.getDate() + 1); 
-      outDateEnd.setHours(0, 0, 0, 0); 
-      // British summer time 
-      outDateEnd.setMinutes(outDateEnd.getMinutes() - outDateEnd.getTimezoneOffset());
-      
-      outDateStart = outDateStart.toISOString();
-      outDateEnd = outDateEnd.toISOString();
-      
-      // The return trip
-      returnDateEnd = new Date(); 
-      returnDateEnd.setDate(returnDateStart.getDate() + 1); 
-      returnDateEnd.setHours(0, 0, 0, 0); 
-      // British summer time 
-      returnDateEnd.setMinutes(returnDateEnd.getMinutes() - returnDateEnd.getTimezoneOffset()); 
-      
-      returnDateStart = returnDateStart.toISOString(); 
-      returnDateEnd = returnDateEnd.toISOString();
-    }
-
-    bookingQuery();
-  }
-
   const bookingQuery = async () => {
+    // Clear journeys array in case the user has gone back to the home page
     dispatch(clearJourneys());
+    // Format dates/times correctly
+    formatDates(); 
 
     // 1 way trip API call
-    if (returnDateStart === null) {
+    if (!returnTrip) {
       const result = await fetch(`https://api.ember.to/v1/quotes/?origin=${startLocation}&destination=${endLocation}&departure_date_from=${outDateStart}&arrival_date_to=${outDateEnd}`); 
       const data = await result.json(); 
       formatData(data, addOutJourney); 
@@ -101,6 +52,55 @@ function Search({ routeValid, datesValid, passengersValid }) {
       formatData(returnTripData, addReturnJourney);
       navigate('/quote');
     }    
+  }
+
+  const formatDates = () => {
+    let temp = new Date();
+    // Check are we leaving today 
+    if (outDateStart.toDateString() === temp.toDateString()) {
+      // Set time to right now 
+      outDateStart.setHours(temp.getHours()); 
+      outDateStart.setMinutes(temp.getMinutes());
+      outDateStart.setMinutes(outDateStart.getMinutes() - outDateStart.getTimezoneOffset());
+    } else {
+      // Set as midnight 
+      outDateStart.setHours(0, 0, 0, 0); 
+      outDateStart.setMinutes(outDateStart.getMinutes() - outDateStart.getTimezoneOffset()); 
+    }
+    
+    if (returnTrip) {
+      // 2 Way trip, 
+      // Out trip 
+      outDateEnd = new Date(); 
+      outDateEnd.setDate(outDateStart.getDate() + 1); 
+      outDateEnd.setHours(0, 0, 0, 0); 
+      outDateEnd.setMinutes(outDateEnd.getMinutes() - outDateEnd.getTimezoneOffset());
+
+      outDateStart = outDateStart.toISOString(); 
+      outDateEnd = outDateEnd.toISOString(); 
+
+      // The return trip
+      returnDateEnd = new Date(); 
+      returnDateEnd.setDate(returnDateStart.getDate() + 1); 
+      returnDateEnd.setHours(0, 0, 0, 0); 
+      // British summer time 
+      returnDateEnd.setMinutes(returnDateEnd.getMinutes() - returnDateEnd.getTimezoneOffset()); 
+      
+      returnDateStart.setMinutes(returnDateStart.getMinutes() - returnDateStart.getTimezoneOffset());
+
+      returnDateStart = returnDateStart.toISOString(); 
+      returnDateEnd = returnDateEnd.toISOString();
+    } else {
+      // End date for single
+      outDateEnd = new Date(); 
+      outDateEnd.setDate(outDateStart.getDate() + 1); 
+      outDateEnd.setHours(0, 0, 0, 0); 
+      // British summer time 
+      outDateEnd.setMinutes(outDateEnd.getMinutes() - outDateEnd.getTimezoneOffset());
+
+      outDateStart = outDateStart.toISOString();
+      outDateEnd = outDateEnd.toISOString();
+    }
   }
 
   const formatData = (data, journey) => {
@@ -126,7 +126,7 @@ function Search({ routeValid, datesValid, passengersValid }) {
   }
 
   return (
-    <button disabled={!isValid} onClick={formatDates}>Search</button>
+    <button disabled={!isValid} onClick={bookingQuery}>Search</button>
   )
 }
 

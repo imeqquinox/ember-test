@@ -8,6 +8,7 @@ export const InputSlice = createSlice({
     endLocation: 42, 
     startDate: new Date(), 
     endDate: null, 
+    returnTrip: false, 
     tickets: {
       adult: 1, 
       concession: 0, 
@@ -36,6 +37,9 @@ export const InputSlice = createSlice({
     setEndDate: (state, action) => { 
       state.endDate = action.payload; 
     }, 
+    setReturnTrip: (state, action) => {
+      state.returnTrip = action.payload;
+    },
     addTicket: (state, action) => {
       switch (action.payload) {
         case "Adult": 
@@ -114,6 +118,7 @@ export const {
   setEndLocation,
   setStartDate, 
   setEndDate,
+  setReturnTrip,
   addTicket,
   removeTicket
 } = InputSlice.actions; 

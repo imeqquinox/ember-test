@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import { useSelector, useDispatch } from 'react-redux';
-import { setStartDate, setEndDate } from './slices/InputSlice';
+import { setStartDate, setEndDate, setReturnTrip } from './slices/InputSlice';
 
 import 'react-calendar/dist/Calendar.css';
 
@@ -16,6 +16,10 @@ function TravelDate({ isValid, setValid }) {
     checkDates(); 
   }, [startDate, endDate]); 
 
+  useEffect(() => {
+    checkReturn(); 
+  }, [endDate]); 
+
   const checkDates = () => {
     let outDate = startDate; 
     let returnDate = endDate; 
@@ -25,9 +29,13 @@ function TravelDate({ isValid, setValid }) {
     outDate.setMinutes(temp.getMinutes()); 
     outDate.setMinutes(outDate.getMinutes() - outDate.getTimezoneOffset()); 
 
-    // Set return date to end of the day
-    if (returnDate != null) {
-      returnDate.setHours(23, 55, 0, 0);
+    // Set return 
+    if (returnDate != null && returnDate.toDateString() === outDate.toDateString()) {
+      returnDate.setHours(temp.getHours()); 
+      returnDate.setMinutes(temp.getMinutes() + 1); 
+      returnDate.setMinutes(returnDate.getMinutes() - returnDate.getTimezoneOffset()); 
+    } else {
+      returnDate = endDate; 
     }
 
     // Figure out current day and set to midnight
@@ -41,10 +49,10 @@ function TravelDate({ isValid, setValid }) {
     if (outDate < today) {
       setValid(false); 
       setErrText("Please enter a valid out date."); 
-    } else if (endDate != null && (endDate < today)) {
+    } else if (returnDate != null && (returnDate < today)) {
       setValid(false); 
       setErrText("Please enter a valid return date.");
-    } else if (endDate != null && (endDate < startDate)) {
+    } else if (returnDate != null && (returnDate < outDate)) {
       setValid(false); 
       setErrText("Your return date is before your out date.");
     } else {
@@ -52,10 +60,19 @@ function TravelDate({ isValid, setValid }) {
     }
   }
 
+  // Check if there is a return trip
+  const checkReturn = () => {
+    if (endDate != null) {
+      dispatch(setReturnTrip(true)); 
+      setAddReturn(true);
+    }
+  }
+
   // Reset if they remove a return trip
   const removeReturn = () => {
     setAddReturn(false); 
     dispatch(setEndDate(null)); 
+    dispatch(setReturnTrip(false));
   }
 
   return (
