@@ -1,0 +1,89 @@
+{
+  "data" : [
+    {
+      "name": "Bridge of Earn",
+      "longitude": -3.402653, 
+      "latitude": 56.344795
+    }, 
+    {
+      "name": "Edinburgh Airport",
+      "longitude": -3.36061, 
+      "latitude": 55.94781
+    }, 
+    {
+      "name": "Dundee West",
+      "longitude": -3.05468, 
+      "latitude": 56.462677
+    },
+    {
+      "name": "Inchture",
+      "longitude": -3.17038, 
+      "latitude": 56.44767
+    }, 
+    {
+      "name": "Ingliston P&R",
+      "longitude": -3.35609, 
+      "latitude": 55.93907
+    }, 
+    {
+      "name": "Rosyth",
+      "longitude": -3.415373, 
+      "latitude": 56.036069
+    }, 
+    {
+      "name": "Kinross P&R",
+      "longitude": -3.433365, 
+      "latitude": 56.206317
+    }, 
+    {
+      "name": "Longforgan",
+      "longitude": -3.1286, 
+      "latitude": 56.45718
+    }, 
+    {
+      "name": "St Madoes/Glencarse",
+      "longitude": -3.30666, 
+      "latitude": 56.37536
+    }, 
+    {
+      "name": "Edinburgh Zoo",
+      "longitude": -3.267927, 
+      "latitude": 55.942079
+    }, 
+    {
+      "name": "Walnut Grove",
+      "longitude": -3.404654, 
+      "latitude": 56.382796
+    }, 
+    {
+      "name": "Edinburgh (St Andrew Square)",
+      "longitude": -3.193094, 
+      "latitude": 55.954905
+    },
+    {
+      "name": "Edinburgh (Haymarket)",
+      "longitude": -3.219407, 
+      "latitude": 55.945848
+    },
+    {
+      "name": "Edinburgh (St Andrew's House)",
+      "longitude": -3.183365, 
+      "latitude": 55.953948
+    },
+    {
+      "name": "Edinburgh (Princes St)",
+      "longitude": -3.203262, 
+      "latitude": 55.950963
+    },
+    {
+      "name": "Edinburgh West",
+      "longitude": -3.263005, 
+      "latitude": 55.961623
+    },
+    {
+      "name": "Dundee",
+      "longitude": -2.97472, 
+      "latitude": 56.45612
+    }
+  ]
+}

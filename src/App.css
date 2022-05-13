@@ -35,3 +35,13 @@
   color: red;
 }
 
+/* Map */
+.map_container {
+  padding: 50px 20%;
+}
+
+.map_icon {
+  width: 20px;
+  height: 20px;
+}
+

@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { setStartLocation, setEndLocation } from './slices/InputSlice';
 
 import Dropdown from './Dropdown';
-import StopsMap from './StopsMap';
 
 function Route({ isValid, setValid }) {
   const startLocation = useSelector((state) => state.inputData.startLocation); 
@@ -42,9 +41,8 @@ function Route({ isValid, setValid }) {
           setStop={setEndLocation}
           defaultStop='Edinburgh (St Andrew Square)'
         />
-        
       </div>
-      {
+        {
           isValid 
           ? 
             null 

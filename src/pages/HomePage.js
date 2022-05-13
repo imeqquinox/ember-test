@@ -1,5 +1,6 @@
 import React from 'react'
 
+import StopsMap from '../components/StopsMap';
 import NavBar from '../components/NavBar';
 import JourneyPlanner from '../components/JourneyPlanner';
 
@@ -26,6 +27,7 @@ function HomePage() {
           </div>
         </header>
         <JourneyPlanner />
+        <StopsMap />
     </div>
   )
 }
